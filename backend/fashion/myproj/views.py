@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseNotFound
 from .settings.base import *
-from .forms import ProductForm
+from .forms import *
 from .models import *
 
 # Create your views here.
@@ -74,8 +74,23 @@ class ProductView(View):
 class RegisterView(View):
 
     def get(self, request):
+        form = RegisterForm()
         return render(request, 'myproj/register.html', {'phone_number': PHONE_NUMBER, 'email': EMAIL,
-                                                        'shop_name': SHOP_NAME,  'address': ADDRESS})
+                                                        'shop_name': SHOP_NAME,  'address': ADDRESS,
+                                                        'form': form})
+
+    def post(self, request):
+        if request.method == 'POST':
+            register_form = RegisterForm(request.POST, request.FILES)
+            if register_form.is_valid() and not None:
+                if Register.objects.filter(username=register_form.cleaned_data.get('username'),
+                                           email=register_form.cleaned_data.get('email')).exists():
+                    func_st = 'Such account already exists!'
+                    return render(request, 'myproj/done.html', {'func_st': func_st})
+                else:
+                    register_form.save()
+                    login = register_form['username']
+                    return render(request, 'myproj/index.html', {'login': login})
 
 
 class ShopView(View):

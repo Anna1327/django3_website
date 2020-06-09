@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="ht-right">
-                    <a href="{% url 'login' %}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <a href="{% url 'login' %}" class="login-panel"><i class="fa fa-user"></i>Login {{ login }}</a>
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
                             <option value='yt' data-imagecss="flag yt" data-image="{% static "myproj/img/flag-1.jpg" %}"

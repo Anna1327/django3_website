@@ -17,3 +17,14 @@ class Products(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.category} - {self.name}'
+
+
+class Register(models.Model):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+    confirm_password = models.CharField(max_length=50)
+
+    class Meta:
+        unique_together = ("username", "email")
