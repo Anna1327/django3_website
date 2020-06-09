@@ -5,3 +5,4 @@ EMAIL = 'aoi.yatsu@ya.ru'
 SHOP_NAME = 'Fashion shop'
 
 ADDRESS = 'Saint-Petersburg, Malaya Morskaya street, 21'
+

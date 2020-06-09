@@ -18,8 +18,13 @@ mimetypes.add_type('text/css', '.css', True)
 mimetypes.add_type('application/javascript', '.js')
 mimetypes.add_type('image/svg+xml', '.svg')
 
+SESSION_SAVE_EVERY_REQUEST = True
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'myproj/static/myproj/img/uploads')
+MEDIA_URL = '/uploads/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -75,7 +80,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'fashion.wsgi.application'
-ASGI_APPLICATION = "fashion.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

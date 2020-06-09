@@ -166,11 +166,10 @@
                     <ul>
                         <li><a href="{% url 'index' %}">Home</a></li>
                         <li><a href="{% url 'shop' %}">Shop</a></li>
-                        <li><a href="#">Collection</a>
+                        <li><a href="#">Function</a>
                             <ul class="dropdown">
-                                <li><a href="#">Men's</a></li>
-                                <li><a href="#">Women's</a></li>
-                                <li><a href="#">Kid's</a></li>
+                                <li><a href="{% url 'create-product' %}">Add product</a></li>
+                                <li><a href="{% url 'update' %}">Update product</a></li>
                             </ul>
                         </li>
                         <li><a href="{% url 'blog' %}">Blog</a></li>
