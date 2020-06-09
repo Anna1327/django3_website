@@ -1,0 +1,42 @@
+{% extends "myproj/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <link rel='stylesheet' href="{% static "myproj/css/build/bundle.css" %}">
+	<script defer src="{% static "myproj/js/build/bundle.js" %}"></script>
+    <a id="shop-ref" hidden="true" href="{% url 'update' %}"></a>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a class="breadcrumb-item" href="{% url 'shop' %}">Home</a>
+            <span class="breadcrumb-item active">Product Update</span>
+        </div>
+    </div>
+
+{#    {% csrf_token %}#}
+<div class="container">
+    {% if product.count > 0 %}
+    <h2>Products catalog:</h2>
+    <table width=60%>
+        <col width=10%>
+        <col width=30%>
+        <col width=40%>
+        <col width=20%>
+        <thead><th>Id</th><th>Category</th><th>Name</th><th></th></thead>
+        {% for field in product %}
+        <tr>
+            <td>{{ field.id }}</td>
+            <td>{{ field.category }}</td>
+            <td>{{ field.name }}</td>
+            <td><a href="{% url 'edit-id' id=field.id %}">Edit</a> | <a href="{% url 'delete-id' id=field.id  %}">Delete</a></td>
+        </tr>
+        {% empty %}
+            <p>Нет данных для построения</p>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "myproj/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <link rel='stylesheet' href="{% static "myproj/css/build/bundle.css" %}">
+	<script defer src="{% static "myproj/js/build/bundle.js" %}"></script>
+    <a id="shop-ref" hidden="true" href="{% url 'shop' %}"></a>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a class="breadcrumb-item" href="{% url 'shop' %}">Home</a>
+            <span class="breadcrumb-item active">Add product</span>
+        </div>
+    </div>
+
+        <div class="container">
+            <form action="{% url 'create-product' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for forms in form %}
+                    <div class="form-group" >
+                        {%  if forms.errors %}
+                            <div class="alert alert-danger">
+                                 {{ forms.errors }}
+                            </div>
+                    {% endif %}
+
+                    {{ forms.label }}
+                    {{ forms }}
+                    </div>
+
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary">Create book</button>
+
+
+            </form>
+        </div>
+
+
+{% endblock %}

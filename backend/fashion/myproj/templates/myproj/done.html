@@ -1,0 +1,24 @@
+{% extends "myproj/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <link rel='stylesheet' href="{% static "myproj/css/build/bundle.css" %}">
+	<script defer src="{% static "myproj/js/build/bundle.js" %}"></script>
+    <a id="shop-ref" hidden="true" href="{% url 'shop' %}"></a>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a class="breadcrumb-item" href="{% url 'shop' %}">Home</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="title">
+             <h2>{{ func_st }}</h2>
+             <hr>
+         </div>
+    </div>
+
+
+{% endblock %}
