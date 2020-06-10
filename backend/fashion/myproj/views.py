@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseNotFound
-from .settings.base import *
+from .utils import *
 from .forms import *
 from .models import *
 
@@ -11,8 +11,9 @@ from .models import *
 class IndexView(View):
 
     def get(self, request):
+        queryset = Products.objects.all()
         return render(request, 'myproj/index.html', {'phone_number': PHONE_NUMBER, 'email': EMAIL,
-                                                     'shop_name': SHOP_NAME,  'address': ADDRESS})
+                                                     'shop_name': SHOP_NAME,  'address': ADDRESS, 'products': queryset})
 
 
 class BlogView(View):
@@ -53,15 +54,24 @@ class FaqView(View):
 class LoginView(View):
 
     def get(self, request):
+        form = RegisterForm()
         return render(request, 'myproj/login.html', {'phone_number': PHONE_NUMBER, 'email': EMAIL,
-                                                     'shop_name': SHOP_NAME,  'address': ADDRESS})
+                                                     'shop_name': SHOP_NAME,  'address': ADDRESS,
+                                                     'form': form})
 
     def post(self, request):
-        html = '<html><body>'
-        for key, value in request.POST.items():
-            html += f'{key}: {value}<br>'
-        html += '</body></html>'
-        return HttpResponse(html)
+        if request.method == 'POST':
+            register_form = RegisterForm(request.POST, request.FILES)
+            if register_form.is_valid() and not None:
+                if Register.objects.filter(username=register_form.cleaned_data.get('username'),
+                                           password=register_form.cleaned_data.get('password')).exists() or \
+                        Register.objects.filter(email=register_form.cleaned_data.get('email'),
+                                                password=register_form.cleaned_data.get('password')).exists():
+                    login = register_form['username']
+                    return render(request, 'myproj/index.html', {'login': login})
+                else:
+                    func_st = 'Such account don not exists!'
+                    return render(request, 'myproj/done.html', {'func_st': func_st})
 
 
 class ProductView(View):
